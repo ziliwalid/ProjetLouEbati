@@ -22,7 +22,7 @@ switch ($action) {
         $folder = "../images/".$filename;
         copy($tempname,$folder);
         Article::AjouterJeux($_POST['ref'],$_POST['des'],$_POST['pu'],$_POST['qte'],$filename,$_POST['id']);
-        header('location:../Gui/DashboardVendeur.php?msg=Article+Added');
+        header('location:../Gui/DashboardVendeur.php');
         break;/*
     case "rechercher":
         // researchAB($_GET['sem']);

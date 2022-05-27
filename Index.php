@@ -1,5 +1,6 @@
 <?php
 include_once './Models/Article.php';
+include_once './Models/Client.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,11 +22,44 @@ include_once './Models/Article.php';
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./Gui/LoginVendeur.php">login</a>
+            <ul class="navbar-nav ">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="./Gui/LoginClient.php">Client</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="./Gui/LoginVendeur.php">Vendeur</a></li>
+                    </ul>
                 </li>
             </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <?php
+                session_start();
+                if (!empty($_SESSION['clog'])){
+                    $clientLogged=$_SESSION['clog'];
+                    $data=Client::GetNameAndID($clientLogged);
+                    while ($row = $data -> fetch()){
+                        $nom=$row[0];
+                    }
+                    $data ->closeCursor();
+                    ?>
+                    <li class="nav-item dropdown" id="name">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Bonjour <?=$nom?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item active" href="./Traitement/TraitementClient.php?action=logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    <?php
+                }
+                ?>
+            </ul>
+
+
         </div>
     </div>
 </nav>
@@ -53,15 +87,15 @@ include_once './Models/Article.php';
                         <!-- Single Product -->
                         <div class="col-md-6 col-lg-4 col-xl-3" id="block">
                             <div id="product-1" class="single-product">
-                                <div class="part-1" style="background: url('./images/<?=$row[5]?>')  no-repeat center;background-size: cover;
+                                <div class="part-1" style="background: url('./images/<?=$row[6]?>')  no-repeat center;background-size: cover;
                                         transition: all 0.3s;">
                                     <ul>
-                                        <li><a href="#" class="btn btn-danger"><i class="fa-solid fa-cart-plus"></i></a></li>
+                                        <li><a href="./Gui/checkoutpage.php?Productid=<?=$row[0]?>" class="btn btn-danger"><i class="fa-solid fa-cart-plus"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="part-2">
                                     <h3 class="product-title"><?=$row[2]?></h3>
-                                    <h4 class="product-price"><?=$row[3]?> MAD</h4>
+                                    <h4 class="product-price"><?=$row[4]?> MAD</h4>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +223,7 @@ include_once './Models/Article.php';
         font-family: 'Smooch', cursive;
         font-weight: bolder;
     }
+
 
 
 

@@ -16,6 +16,14 @@ include_once __dir__.'/../ConnexionAbd/Dataaccess.php';
          $cur =Dataaccess::majour($req);
          return $cur;
      }
+     public static function ShowProductDetails($id){
+         $req="SELECT * from article where `idArt`=$id";
+         return Dataaccess::selection($req);
+     }
+     public static function showDatafromart($id){
+         $req="SELECT * from article where `idArt`=$id";
+         return Dataaccess::selection($req);
+     }
 
 
 

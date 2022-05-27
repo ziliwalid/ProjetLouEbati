@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Inscription Client</title>
 </head>
 <body>
 
@@ -21,15 +21,12 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./LoginVendeur.php">login</a>
+                    <a class="nav-link active" aria-current="page" href="./LoginClient.php">login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-
-
 
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
@@ -38,7 +35,7 @@
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                        <form method="get" action="../Traitement/TraitementVendeur.php">
+                        <form method="get" action="../Traitement/TraitementClient.php">
 
                             <div class="row">
                                 <div class="col-md-6 mb-4">
@@ -60,68 +57,29 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                                    <div class="form-outline datepicker w-100">
-                                        <select name="domaine" class="select form-control-lg">
-                                            <option value="1" disabled>Choose an option</option>
-                                            <option value="Gaming">Gaming</option>
-                                            <option value="Sci-fi">Sci-fi</option>
-                                        </select>
-                                        <label class="form-label select-label">Domaine</label>
-                                    </div>
-
-                                </div>
                                 <div class="col-md-6 mb-4">
-
-                                    <h6 class="mb-2 pb-1">Gender: </h6>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="femaleGender"
-                                               value="female" checked />
-                                        <label class="form-check-label" for="femaleGender">Female</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="maleGender"
-                                               value="male" />
-                                        <label class="form-check-label" for="maleGender">Male</label>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">
-
                                     <div class="form-outline">
                                         <div class="col-12">
                                             <input type="email" name="mail" id="emailAddress" class="form-control form-control-lg" />
                                             <label class="form-label" for="emailAddress">Email</label>
-                                        </div>
+                                      </div>
                                     </div>
-                                </div>
+                                 </div>
                                 <div class="col-md-6 mb-4 pb-2">
 
                                     <div class="form-outline">
                                         <input type="password" name="password" id="phoneNumber" class="form-control form-control-lg" />
                                         <label class="form-label" for="phoneNumber">Password</label>
                                     </div>
-
                                 </div>
                             </div>
 
-                            <div class="row">
-
-                            </div>
-
-                            <div class="mt-4 pt-2">
+                            <div class="mt-2 pt-2">
                                 <input class="btn btn-primary btn-lg" type="submit" name="action" value="Sign Up" />
                                 Got an account? <a href="LoginVendeur.php">Sign in here.</a>
                             </div>
 
                         </form>
-                    </div>
                 </div>
             </div>
         </div>

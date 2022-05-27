@@ -54,9 +54,9 @@ echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
                 while ($row = $showData->fetch()){
                     echo "<tr><td>$row[1]</td>";
                     echo "<td>$row[2]</td>";
-                    echo "<td>$row[3]</td>";
                     echo "<td>$row[4]</td>";
-                    echo "<td><img src='../images/$row[5]' class='img-thumbnail rounded mx-auto d-block' alt='...'></td></tr>";
+                    echo "<td>$row[5]</td>";
+                    echo "<td><img src='../images/$row[6]' class='img-thumbnail rounded mx-auto d-block' alt='...'></td></tr>";
                 }
             ?>
         </tr>
