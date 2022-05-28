@@ -20,15 +20,18 @@ class Client
         self::decreasingQte($idart);
         self::insertInInventory($idvendeur,$idclient,$idart);
     }
-
+/*Traitement d'achat*/
     private static function decreasingQte($id){
         $req="Update article set qte=qte-1 where `idArt`='$id'";
         return Dataaccess::majour($req);
     }
-
-
     private static function insertInInventory($idvendeur,$idclient,$idArt){
         $req="INSERT INTO `boughtitems`(`idvendeur`, `idclient`, `idArt`) VALUES ('$idvendeur','$idclient','$idArt')";
         return Dataaccess::majour($req);
+    }
+/*end traitement*/
+    public static function showBoughtItemes($id){
+        $req=" select designation , image, prenom, idclient from article a, vendeur v, boughtitems b where a.idArt=b.idArt and v.id=b.idvendeur and  b.idclient='$id';";
+        return Dataaccess::selection($req);
     }
 }

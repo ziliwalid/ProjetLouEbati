@@ -1,29 +1,26 @@
 <?php
-include_once '../Models/Vendeur.php';
-include_once '../Models/Article.php';
-session_start();
-$mail=$_SESSION['slog'];
-$cur=Vendeur::GetNameAndID($mail);
-while ($row = $cur -> fetch()){
-    $name=$row[0];
-    $id=$row[1];
-}
-$cur->closeCursor();
+ include_once '../Models/Article.php';
+ include_once '../Models/Client.php';
+ session_start();
+ $id=$_SESSION['clog'];
+ $trueID=Client::GetNameAndID($id);
+ while ($res = $trueID->fetch()){
+     $clientID=$res[1];
+     $name=$res[0];
+ }
+ $resData=Client::showBoughtItemes($clientID);
 ?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Client's inventory</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
 
-<?php
 
-echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
-?>
 
 <div class="container mt-5 az">
 
@@ -32,38 +29,29 @@ echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
         <div class="row">
             <div class="col-sm-6">
                 <h2>Bonjour <span class="name"><?=$name?></span></h2>
-                <h3>Gérez vos Articles</h3>
+                <h3>Voici les jeux que vous avez acheté</h3>
             </div>
-            <div class="col-sm-6 mt-4">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un Article</button>
-                <a href="../Traitement/TraitementVendeur.php?action=logout" class="btn btn-danger" >Logout</a>
+            <div class="col-sm-4 mt-4 ">
+                <a href="../Traitement/TraitementClient.php?action=logout" class="btn btn-danger float-end" >Logout</a>
             </div>
         </div>
         <tr>
-            <th scope="col">Référence</th>
+            <th scope="col">Image</th>
             <th scope="col">Désignation</th>
-            <th scope="col">Prix Unitaire</th>
-            <th scope="col">Quantié</th>
-            <th scope="col">Image du produit</th>
+            <th scope="col">vendeur</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+
             <?php
-                $showData=Article::showData($id);
-                while ($row = $showData->fetch()){
-                    echo "<tr><td>$row[1]</td>";
-                    echo "<td>$row[2]</td>";
-                    echo "<td>$row[4]</td>";
-                    if($row[5]<=0){
-                        echo "<td><button class='btn btn-danger'>Out of stock <i class=\"fa-solid fa-ban\"></i></button></td>";
-                    }else{
-                        echo "<td>$row[5]</td>";
-                    }
-                    echo "<td><img src='../images/$row[6]' class='img-thumbnail rounded mx-auto d-block' alt='...'></td></tr>";
+                while ($row = $resData->fetch()){
+                    echo "<tr><td><img src='../images/$row[1]' class='img-thumbnail rounded mx-auto d-block' alt='...'></td></td>";
+                    echo "<td>$row[0]</td>";
+                    echo "<td>par <span style='font-weight: bold'>$row[2]</span></td></tr>";
                 }
             ?>
-        </tr>
+
+
         </tbody>
     </table>
 </div>
@@ -77,7 +65,7 @@ echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" action="../Traitement/TraitementVendeur.php" enctype="multipart/form-data">
-            <div class="modal-body">
+                <div class="modal-body">
 
                     <div class="mb-3">
                         <label for="ref" class="form-label">Référence :</label>
@@ -94,18 +82,18 @@ echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
                     <div class="mb-3">
                         <label for="ref" class="form-label">Quantité</label>
                         <input class="form-control" id="ref" type="number" name="qte">
-                        <input type="hidden" name="id" value="<?=$id?>">
+                        <input type="hidden" name="id" value="">
                     </div>
                     <div class="mb-3">
                         <label for="ref" class="form-label">Image du produit</label>
                         <input class="form-control" type="file" id="ref" name="uploadfile">
                     </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="action" value="Ajout">Ajouter</button>
-            </div></form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="Ajout">Ajouter</button>
+                </div></form>
         </div>
     </div>
 </div>
@@ -141,7 +129,7 @@ echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
     }
     .name{
         font-weight: bold;
-        color: #4169E1;
+        color: #f41c4e;
     }
     body {
         background: linear-gradient(270deg, #0bd8d6, #f41c4e);
@@ -175,3 +163,4 @@ echo "<script type=\"text/javascript\">toastr.success('Have Fun')</script>";
         text-align: center;
     }
 </style>
+

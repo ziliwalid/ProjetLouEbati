@@ -51,6 +51,8 @@ include_once './Models/Client.php';
                             Bonjour <?=$nom?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./Gui/BoughtItems.php">My Games</a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item active" href="./Traitement/TraitementClient.php?action=logout">Logout</a></li>
                         </ul>
                     </li>
@@ -90,7 +92,14 @@ include_once './Models/Client.php';
                                 <div class="part-1" style="background: url('./images/<?=$row[6]?>')  no-repeat center;background-size: cover;
                                         transition: all 0.3s;">
                                     <ul>
-                                        <li><a href="./Gui/checkoutpage.php?Productid=<?=$row[0]?>" class="btn btn-danger"><i class="fa-solid fa-cart-plus"></i></a></li>
+                                        <?php
+                                            if ($row[5]<=0){
+                                                echo "<li><button class='btn btn-danger'>Out of stock <i class=\"fa-solid fa-ban\"></i></button></li>";
+                                            }else{
+                                                echo " <li><a href=\"./Gui/checkoutpage.php?Productid=$row[0]\" class=\"btn btn-danger\"><i class=\"fa-solid fa-cart-plus\"></i></a></li>";
+                                            }
+                                        ?>
+
                                     </ul>
                                 </div>
                                 <div class="part-2">
